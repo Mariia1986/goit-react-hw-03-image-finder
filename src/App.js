@@ -48,7 +48,7 @@ getPage=()=>{
     return (
       <div className="App">
        <Searchbar getQuery={this.getQuery}/>
-       <ImageGallery gallery={this.gallery}/>
+       <ImageGallery gallery={this.state.gallery}/>
       </div>
     );
   }

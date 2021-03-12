@@ -3,10 +3,12 @@ import "./ImageGallery.css";
 import ImageGalleryItem from '../ImageGalleryItem'
 import PropTypes from "prop-types";
 
-const ImageGallery=()=>{
+const ImageGallery=({gallery})=>{
+console.log(gallery)
 return(
     <ul className="ImageGallery">
- <ImageGalleryItem/>
+        {gallery.map((el)=>(<ImageGalleryItem  key={el.id} imgUrl={el.webformatURL}/>))}
+ 
 </ul>
 )
 

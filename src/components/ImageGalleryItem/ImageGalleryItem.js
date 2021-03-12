@@ -2,10 +2,10 @@ import React from "react";
 import  "./ImageGalleryItem.css";
 import PropTypes from "prop-types";
 
-const ImageGalleryItem=()=>{
+const ImageGalleryItem=(imgUrl)=>{
     return(
 <li className="ImageGalleryItem">
-  <img src="" alt="" className="ImageGalleryItem-image" />
+  <img src={imgUrl} alt="#" className="ImageGalleryItem-image" />
 </li>
     )
 }
