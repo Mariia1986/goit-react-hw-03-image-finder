@@ -1,13 +1,21 @@
 import React from "react";
-import s from "./ContactList.module.css";
+import "./ImageGallery.css";
+import ImageGalleryItem from '../ImageGalleryItem'
 import PropTypes from "prop-types";
 
+const ImageGallery=()=>{
+return(
+    <ul className="ImageGallery">
+ <ImageGalleryItem/>
+</ul>
+)
 
+}
 
-// ContactList.propTypes={
+// ImageGallery.propTypes={
 //  }
 
 
 
-// export default ContactList;
+export default ImageGallery;
 

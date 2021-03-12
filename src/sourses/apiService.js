@@ -7,7 +7,7 @@ import axios from "axios"
 function getFetch(query,page){
   let key='19753127-35047f3cd3d8da270542cf7b9'
   axios.defaults.baseURL='https://pixabay.com/api/?'
-  // axios.defaults.headers.common["Authorization"]=key
+  // axios.defaults.key=key
   let url=`q=${query}&page=${page}image_type=photo&orientation=horizontal&per_page=12&key=${key}`
   return axios.get(url).then(response=>{  return response.data.hits})
 }

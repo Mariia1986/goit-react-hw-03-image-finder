@@ -1,11 +1,17 @@
 import React from "react";
-import s from "./Filter.module.css";
+import  "./ImageGalleryItem.css";
 import PropTypes from "prop-types";
 
+const ImageGalleryItem=()=>{
+    return(
+<li className="ImageGalleryItem">
+  <img src="" alt="" className="ImageGalleryItem-image" />
+</li>
+    )
+}
 
-
-// Filter.propTypes = {
+// ImageGalleryItem.propTypes = {
  
 // };
 
-// export default ;
+export default ImageGalleryItem;
