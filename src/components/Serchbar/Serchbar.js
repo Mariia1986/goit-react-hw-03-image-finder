@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 
 class Searchbar extends Component {
   state = {
-    // showModal: false,
+    
     queryValue: "",
-    // elem: null,
+    
   };
   handleChange = (e) => {
     console.log(e.target.value)
@@ -16,10 +16,10 @@ class Searchbar extends Component {
 
   handleSubmit=(e)=>{
     e.preventDefault();
-    const { getQuery } = this.props;
-    console.log(getQuery)
+    const { onSubmit } = this.props;
+    console.log(onSubmit)
     
-    getQuery(this.state.queryValue);
+    onSubmit(this.state.queryValue);
     this.state.queryValue = "";
 
   }

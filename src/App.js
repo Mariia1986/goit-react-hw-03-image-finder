@@ -1,54 +1,84 @@
 import React, { Component } from "react";
-import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
 import "./App.css";
-import pixaBay from './sourses/apiService'
-import Searchbar from './components/Serchbar'
-import ImageGallery from './components/ImageGallery'
-const {getFetch}= pixaBay
-
-
-// console.log(getFetch('moon', 1))
+import pixaBay from "./sourses/apiService";
+import Searchbar from "./components/Serchbar";
+import ImageGallery from "./components/ImageGallery";
+import Button from "./components/Button";
+import Spinner from "./components/Loader";
+const { getFetch } = pixaBay;
 
 class App extends Component {
   state = {
-    query:'moon',
-    page:1,
-    gallery:[],
-
+    query: "",
+    page: 1,
+    gallery: [],
+    status: "",
   };
-  
-   componentDidMount(){
 
-    const{query, page}=this.state
-    getFetch(query, page).then(result=>{
-      this.setState({gallery:[...result]})
-      
-    })
+  componentDidUpdate(prevProps, prevState) {
+    const { query, page } = this.state;
+    if (query !== prevState.query || page !== prevState.page) {
+      this.setState({ status: "pending" });
+      this.getImage(query, page);
+    }
+  }
 
-}
+  getImage(query, page) {
+    getFetch(query, page)
+      .then((result) => {
+        console.log(result);
+        if (result.length) {
+          this.setState((prev) => ({
+            gallery: [...this.state.gallery, ...result],
+            status: "resolved",
+          }));
+          if (page !== 1) {
+            window.scrollTo({
+              top: document.documentElement.scrollHeight,
+              behavior: "smooth",
+            });
+          }
+        } else {
+          this.setState({ msg: "Nothing to show by your request" });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
-   
+  getQuery = (query) => {
+    this.setState((prevstate) => {
+      if (prevstate.query === query) {
+        return;
+      }
+      return { query, page: 1, gallery: [] };
+    });
+  };
 
- componentDidUpdate(prevProps, prevState){
-   
- }
+  getPage = () => {
+    this.setState((prev) => ({ page: prev.page + 1 }));
+  };
 
-
- getQuery =(query) => {
- 
-  this.setState({ query });
-};
-
-getPage=()=>{
-  this.setState({page: this.prevState.page+1 });
-}
   render() {
-    
+    const { status, gallery } = this.state;
     return (
       <div className="App">
-       <Searchbar getQuery={this.getQuery}/>
-       <ImageGallery gallery={this.state.gallery}/>
+        <Searchbar onSubmit={this.getQuery} />
+        {(status === "pending" ||
+          status === "resolved") && (
+           
+              <ImageGallery gallery={gallery} />
+             
+          )}
+        {status === "resolved" && gallery.length && (
+          <Button onClick={this.getPage} />
+        )}
+        {status === "pending" && (
+          <div className="container">
+            <Spinner />
+          </div>
+        )}
       </div>
     );
   }

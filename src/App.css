@@ -31,3 +31,9 @@ img {
   grid-gap: 16px;
   padding-bottom: 24px;
 }
+
+
+
+.container{
+  margin: 0 auto;
+}
