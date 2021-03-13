@@ -13,6 +13,7 @@ class App extends Component {
     page: 1,
     gallery: [],
     status: "",
+    error: "",
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -39,11 +40,18 @@ class App extends Component {
             });
           }
         } else {
-          this.setState({ msg: "Nothing to show by your request" });
+          this.setState({
+            status: "rejected",
+            error: `There no images on your query ${query}`,
+          });
         }
       })
       .catch((err) => {
-        console.log(err);
+        this.setState({
+          images: [],
+
+          status: "rejected",
+        });
       });
   }
 
@@ -61,19 +69,17 @@ class App extends Component {
   };
 
   render() {
-    const { status, gallery } = this.state;
+    const { status, gallery, error } = this.state;
     return (
       <div className="App">
         <Searchbar onSubmit={this.getQuery} />
-        {(status === "pending" ||
-          status === "resolved") && (
-           
-              <ImageGallery gallery={gallery} />
-             
-          )}
+        {(status === "pending" || status === "resolved") && (
+          <ImageGallery gallery={gallery} />
+        )}
         {status === "resolved" && gallery.length && (
           <Button onClick={this.getPage} />
         )}
+        {status === "rejected" && <div className="errorContainer">{error}</div>}
         {status === "pending" && (
           <div className="container">
             <Spinner />

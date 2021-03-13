@@ -2,10 +2,10 @@ import React from "react";
 import  "./ImageGalleryItem.css";
 import PropTypes from "prop-types";
 
-const ImageGalleryItem=({imgUrl, tags})=>{
+const ImageGalleryItem=({imgUrl, imgAlt, onClick, imgSrc})=>{
     return(
-<li className="ImageGalleryItem">
-  <img src={imgUrl} alt={tags} className="ImageGalleryItem-image" />
+<li className="ImageGalleryItem" onClick={()=>onClick( imgSrc, imgAlt)}>
+  <img src={imgUrl} alt={imgAlt} className="ImageGalleryItem-image" />
 </li>
     )
 }
