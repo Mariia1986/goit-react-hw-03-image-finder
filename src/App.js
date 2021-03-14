@@ -17,7 +17,7 @@ class App extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const { query, page } = this.state;
+    const { query, page, gallery } = this.state;
     if (query !== prevState.query || page !== prevState.page) {
       this.setState({ status: "pending" });
       this.getImage(query, page);
@@ -27,7 +27,7 @@ class App extends Component {
   getImage(query, page) {
     getFetch(query, page)
       .then((result) => {
-        console.log(result);
+       
         if (result.length) {
           this.setState((prev) => ({
             gallery: [...this.state.gallery, ...result],
@@ -48,7 +48,7 @@ class App extends Component {
       })
       .catch((err) => {
         this.setState({
-          images: [],
+          gallery: [],
 
           status: "rejected",
         });

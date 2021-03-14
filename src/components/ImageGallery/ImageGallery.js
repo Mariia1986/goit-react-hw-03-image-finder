@@ -15,32 +15,34 @@ class ImageGallery extends Component {
     this.setState({ modalOpen: !this.state.modalOpen, imgSrc: "", imgAlt: "" });
   };
 
-  handleClick=(imgSrc, imgAlt)=>{
-   
-    this.toggleModal()
-    
-     this.setState({imgSrc ,imgAlt})
- }
+  handleClick = (imgSrc, imgAlt) => {
+    this.toggleModal();
+
+    this.setState({ imgSrc, imgAlt });
+  };
 
   render() {
     const { gallery } = this.props;
-    const{ imgSrc,  imgAlt, modalOpen }=this.state
+    const { imgSrc, imgAlt, modalOpen } = this.state;
     return (
       <ul className="ImageGallery">
         {gallery.map((el) => (
           <ImageGalleryItem
-           onClick={this.handleClick}
-          
+            onClick={this.handleClick}
             key={el.id}
             imgUrl={el.webformatURL}
             imgAlt={el.tags}
             imgSrc={el.largeImageURL}
           />
         ))}
-       {modalOpen && <Modal imgUrl={ imgSrc}  imgAlt={imgAlt}  closeModal={this.toggleModal}/>}
+        {modalOpen && (
+          <Modal
+            imgUrl={imgSrc}
+            imgAlt={imgAlt}
+            closeModal={this.toggleModal}
+          />
+        )}
       </ul>
-      
-
     );
   }
 }

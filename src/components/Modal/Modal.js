@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./Modal.css";
 import { createPortal } from "react-dom";
+import { propTypes } from "react-bootstrap/esm/Image";
+import PropTypes from "prop-types";
 
 const modalRef = document.getElementById("modal-root");
 
@@ -14,8 +16,6 @@ class Modal extends Component {
   }
 
   handleCloseModal = (e) => {
-    console.log(e.target);
-    console.log(e.currentTarget);
     if (e.target === e.currentTarget) {
       this.props.closeModal();
     }
@@ -41,3 +41,9 @@ class Modal extends Component {
 }
 
 export default Modal;
+
+Modal.propTypes = {
+  imgUrl: PropTypes.string.isRequired,
+  imgAlt: PropTypes.string.isRequired,
+  closeModal: PropTypes.func.isRequired,
+};
